@@ -23,7 +23,7 @@ app.get('/:shortId', async (req, res) => {
         { shortId },
         {
             $push: {
-                visitedHistory: { timestamp: Date.now() },
+                visitHistory: { timestamp: Date.now() },
             }
         }
     );
