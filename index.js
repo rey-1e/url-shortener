@@ -1,7 +1,7 @@
 const express = require("express");
 const { connectToMongoDB } = require('./connect')
 const urlRoute = require("./routes/url");
-const { handleGetRedirectURL } = require('./controllers/url');
+const { handleGetRedirectURL, handleDeleteShortURL } = require('./controllers/url');
 const app = express();
 const PORT = 8000;
 
@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/url", urlRoute);
 
 app.get('/:shortId', handleGetRedirectURL);
+app.delete('/:shortId', handleDeleteShortURL);
 
 app.listen(PORT, () => console.log(`Server Started at ${PORT}\n`));
 
