@@ -26,7 +26,27 @@ async function handleGetAnalytics(req, res) {
     return res.json( {totalClicks: result.visitHistory.length, analytics: result.visitHistory});
 }
 
+async function handleGetRedirectURL(req, res) {
+    const shortId = req.params.shortId;
+
+    const entry = await URL.findOneAndUpdate(
+        { shortId },
+        {
+            $push: {
+                visitHistory: { timestamp: Date.now() },
+            }
+        }
+    );
+
+    if (!entry) {
+        return res.status(404).send('URL not found');
+    }
+
+    res.redirect(entry.redirectURL);
+}
+
 module.exports = {
     handleGenerateNewShortURL,
     handleGetAnalytics,
+    handleGetRedirectURL,
 }
