@@ -45,8 +45,18 @@ async function handleGetRedirectURL(req, res) {
     res.redirect(entry.redirectURL);
 }
 
+async function handleDeleteShortURL(req, res) {
+    const shortId = req.params.shortId;
+    const result = await URL.findOneAndDelete({ shortId });
+
+    if (!result) return res.status(404).json({ error: "URL not found" });
+
+    return res.json({ status: "success", id: shortId });
+}
+
 module.exports = {
     handleGenerateNewShortURL,
     handleGetAnalytics,
     handleGetRedirectURL,
+    handleDeleteShortURL,
 }
