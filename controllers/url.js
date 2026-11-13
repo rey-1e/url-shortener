@@ -1,7 +1,7 @@
 const { nanoid } = require("nanoid");
 const URL = require("../models/url");
 
-
+//function to create new short urls from given user-URLs
 async function handleGenerateNewShortURL(req, res) {
     
     const body = req.body;
@@ -17,6 +17,8 @@ async function handleGenerateNewShortURL(req, res) {
     
     return res.json({id : shortID});
 }
+
+//function to get analytics of urls.
 async function handleGetAnalytics(req, res) {
     const shortId = req.params.shortId;
     const result = await URL.findOne( {shortId});
@@ -26,6 +28,7 @@ async function handleGetAnalytics(req, res) {
     return res.json( {totalClicks: result.visitHistory.length, analytics: result.visitHistory});
 }
 
+//find the redirection link for that short-generated URL, and redirect to that. 
 async function handleGetRedirectURL(req, res) {
     const shortId = req.params.shortId;
 
@@ -45,6 +48,7 @@ async function handleGetRedirectURL(req, res) {
     res.redirect(entry.redirectURL);
 }
 
+//uses find one and delete to delete the URL that it's requested on.
 async function handleDeleteShortURL(req, res) {
     const shortId = req.params.shortId;
     const result = await URL.findOneAndDelete({ shortId });
@@ -54,6 +58,7 @@ async function handleDeleteShortURL(req, res) {
     return res.json({ status: "success", id: shortId });
 }
 
+//export all the functions created. 
 module.exports = {
     handleGenerateNewShortURL,
     handleGetAnalytics,
