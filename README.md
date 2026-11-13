@@ -1,1 +1,1 @@
-manage get/post/delete requests on localhost
+create short urls for any url
