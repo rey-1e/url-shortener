@@ -1,6 +1,7 @@
 const express = require("express");
 const { connectToMongoDB } = require('./connect')
 const path = require("path");
+const staticRoute = require("./views/staticRouter");
 const urlRoute = require("./routes/url");
 const { handleGetRedirectURL, handleDeleteShortURL } = require('./controllers/url');
 
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //requests over /url
 app.use("/url", urlRoute);
+app.use("/", staticRoute);
 
 app.get("/test", (req, res) => {
     return res.render("home");
