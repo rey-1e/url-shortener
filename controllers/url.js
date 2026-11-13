@@ -1,6 +1,10 @@
 const { nanoid } = require("nanoid");
 const URL = require("../models/url");
 
+async function handleGetRequestOnHome(req, res) {
+    return res.status(200).json({status : "Make Post Request Here!"});
+}
+
 //function to create new short urls from given user-URLs
 async function handleGenerateNewShortURL(req, res) {
     
@@ -60,6 +64,7 @@ async function handleDeleteShortURL(req, res) {
 
 //export all the functions created. 
 module.exports = {
+    handleGetRequestOnHome,
     handleGenerateNewShortURL,
     handleGetAnalytics,
     handleGetRedirectURL,
