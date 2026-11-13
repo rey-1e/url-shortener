@@ -8,6 +8,9 @@ const { handleGetRedirectURL, handleDeleteShortURL } = require('./controllers/ur
 const app = express();
 const PORT = 8000;
 
+app.set("view engine", "ejs");
+app.set("views", path.resolve("./views"));
+
 //calling connectToMongoDB function from connect.js using mongodb link as a parameter. 
 connectToMongoDB('mongodb://127.0.0.1:27017/url-shortener')
     .then(() => {
@@ -25,6 +28,10 @@ app.use(express.urlencoded({ extended: false }));
 
 //requests over /url
 app.use("/url", urlRoute);
+
+app.get("/test", (req, res) => {
+    return res.render("home");
+});
 
 //requests over /:shortId
 app.get('/:shortId', handleGetRedirectURL);
